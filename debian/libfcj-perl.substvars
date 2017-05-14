@@ -1,0 +1,4 @@
+perl:Depends=perl (>= 5.22.1-9), perlapi-5.22.1
+shlibs:Depends=libc6 (>= 2.4), libopencv-core2.4v5, libopencv-highgui2.4v5, libopencv-imgproc2.4v5
+misc:Depends=
+misc:Pre-Depends=

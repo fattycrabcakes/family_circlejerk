@@ -1,0 +1,34 @@
+Source: libfcj-perl
+Section: perl
+Priority: optional
+Maintainer: Fatty Crabcakes <fatty@>
+Build-Depends: debhelper (>= 9.20120312~),
+ libfile-type-perl,
+ libhttp-message-perl,
+ libimage-magick-perl,
+ libjson-xs-perl,
+ libtry-tiny-perl,
+ liburi-perl,
+ libweb-scraper-perl,
+ libwww-perl,
+ perl,
+ perl-modules-5.22 (>= 7.12)
+Standards-Version: 3.9.6
+Homepage: https://metacpan.org/release/FCJ
+
+Package: libfcj-perl
+Architecture: any
+Depends: ${misc:Depends}, ${perl:Depends}, ${shlibs:Depends},
+ libfile-type-perl,
+ libhttp-message-perl,
+ libimage-magick-perl,
+ libjson-xs-perl,
+ libtry-tiny-perl,
+ liburi-perl,
+ libweb-scraper-perl,
+ libwww-perl,
+ perl-modules-5.22 (>= 7.12)
+Description: (no short description found)
+ (no description was found)
+ .
+ This description was automagically extracted from the module by dh-make-perl.

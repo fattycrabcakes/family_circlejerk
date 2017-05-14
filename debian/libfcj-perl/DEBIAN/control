@@ -1,0 +1,13 @@
+Package: libfcj-perl
+Version: 6.6.6-1
+Architecture: amd64
+Maintainer: Fatty Crabcakes <fatty@>
+Installed-Size: 77
+Depends: perl (>= 5.22.1-9), perlapi-5.22.1, libc6 (>= 2.4), libopencv-core2.4v5, libopencv-highgui2.4v5, libopencv-imgproc2.4v5, libfile-type-perl, libhttp-message-perl, libimage-magick-perl, libjson-xs-perl, libtry-tiny-perl, liburi-perl, libweb-scraper-perl, libwww-perl, perl-modules-5.22 (>= 7.12)
+Section: perl
+Priority: optional
+Homepage: https://metacpan.org/release/FCJ
+Description: (no short description found)
+ (no description was found)
+ .
+ This description was automagically extracted from the module by dh-make-perl.
