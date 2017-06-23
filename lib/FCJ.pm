@@ -15,7 +15,15 @@ sub new {
 
 	return bless {
 		ttf=>$opt{ttf},
+		img=>$opt{img},
 	},$class;
+}
+
+sub info {
+	my ($self,$img) = @_;
+
+	my $val = FCJ::Info::get($img);
+	return $val;
 }
 
 sub render {

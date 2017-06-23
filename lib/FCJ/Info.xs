@@ -25,25 +25,34 @@ SV* fcj_get_info(const char* filename) {
     CvMemStorage *storage = cvCreateMemStorage(0);
 
     int bkp = 1;
-
     c = cvHoughCircles(src, storage, CV_HOUGH_GRADIENT, 1, 100, 100, 100, 200, 0);
     int thickness = 5;
-	AV* yoffs = newAV();
-    for(int i = 0; i<c->total; i++ ) {
-        float* p = (float*) cvGetSeqElem( c, i );
-        int r = (int)p[2];
+		AV* yoffs = newAV();
+		HV* ret = newHV();
 
-		av_push(yoffs,newSViv((int)p[0]-r));	
-		av_push(yoffs,newSViv((int)p[1]+r+thickness+5));
-		av_push(yoffs,newSViv((int)p[0]+r+thickness));
-		av_push(yoffs,newSViv(src->height));
+    for(int i = 0; i<c->total; i++ ) {
+      float* p = (float*) cvGetSeqElem( c, i );
+      int r = (int)p[2];
+
+			hv_store(ret,"radius",6,newSViv(r),0);
+			hv_store(ret,"x",1,newSViv((int)p[0]),0);
+			hv_store(ret,"y",1,newSViv((int)p[1]),0);
+			
+
+			av_push(yoffs,newSViv((int)p[0]-r));	
+			av_push(yoffs,newSViv((int)p[1]+r+thickness+5));
+			av_push(yoffs,newSViv((int)p[0]+r+thickness));
+			av_push(yoffs,newSViv(src->height));
+		
+			hv_store(ret,"rect",4,newRV((SV*)yoffs),0);
+		
     }
 
-	cvReleaseMemStorage(&storage);
+		cvReleaseMemStorage(&storage);
     cvReleaseMemStorage(&c);
-	cvReleaseImage(&src);
+		cvReleaseImage(&src);
 	
-	return newRV((SV*)yoffs);
+		return newRV((SV*)ret);
 }
 
 MODULE = FCJ::Info  PACKAGE = FCJ::Info
