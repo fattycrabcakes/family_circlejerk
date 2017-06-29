@@ -29,14 +29,26 @@ SV* fcj_get_info(const char* filename) {
     int thickness = 5;
 		AV* yoffs = newAV();
 		HV* ret = newHV();
+		AV* entries = newAV();
+
+		hv_store(ret,"count",5,newSViv((int)c->total),0);
+		
 
     for(int i = 0; i<c->total; i++ ) {
       float* p = (float*) cvGetSeqElem( c, i );
       int r = (int)p[2];
 
-			hv_store(ret,"radius",6,newSViv(r),0);
-			hv_store(ret,"x",1,newSViv((int)p[0]),0);
-			hv_store(ret,"y",1,newSViv((int)p[1]),0);
+			HV* entry = newHV();
+
+			hv_store(entry,"radius",6,newSViv(r),0);
+			hv_store(entry,"x",1,newSViv((int)p[0]),0);
+			hv_store(entry,"y",1,newSViv((int)p[1]),0);
+			hv_store(entry,"left",4,newSViv((int)p[0]-p[2]),0);
+		 	hv_store(entry,"top",3,newSViv((int)p[1]-p[2]),0);
+			hv_store(entry,"size",4,newSViv((int)p[2]*2),0);
+			
+
+			
 			
 
 			av_push(yoffs,newSViv((int)p[0]-r));	
@@ -44,9 +56,11 @@ SV* fcj_get_info(const char* filename) {
 			av_push(yoffs,newSViv((int)p[0]+r+thickness));
 			av_push(yoffs,newSViv(src->height));
 		
-			hv_store(ret,"rect",4,newRV((SV*)yoffs),0);
-		
+			hv_store(entry,"points",6,newRV((SV*)yoffs),0);
+
+			av_push(entries,newRV((SV*)entry));
     }
+		hv_store(ret,"entries",7,newRV((SV*)entries),0);
 
 		cvReleaseMemStorage(&storage);
     cvReleaseMemStorage(&c);
