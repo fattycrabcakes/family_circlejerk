@@ -9,6 +9,8 @@ use LWP::UserAgent;
 use Image::Magick;
 use HTTP::Message;
 use feature qw(say);
+use XSLoader;
+XSLoader::load('FCJ', $VERSION);
 
 sub new {
 	my ($class,%opt) = @_;
@@ -32,7 +34,7 @@ sub render {
 	$opt{image}||=$self->random_image;
 	my $img = $self->load_image($opt{image});
 
-	my $rect = FCJ::Info::get("/tmp/fcj.png");
+	my $rect = $self->get("/tmp/fcj.png");
 	return undef if (!scalar(@$rect));
 	my $max_width = $rect->[2]-$rect->[0];
 	my $max_height = $rect->[3] - $rect->[1];
