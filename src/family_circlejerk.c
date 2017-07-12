@@ -1,11 +1,14 @@
 #include "family_circlejerk.h"
+#include <stdio.h>
 
-SV* fcj_get_info(const char* filename) {
+SV* fcj_get_info(const char* data) {
 
-    IplImage* src = cvLoadImage( filename,0);
 
-    if( !src ) {
-        return newRV(newSV(0));
+	IplImage* src = cvLoadImage(data,0);
+
+	
+	if( !src ) {
+        return newRV((SV*)newHV());
     }
 
     CvSize size = cvGetSize(src);

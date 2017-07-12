@@ -3,9 +3,9 @@ use warnings FATAL => 'all';
 use Module::Build;
 
 my $builder = Module::Build->new(
-	module_name    => 'FCJ',
+	module_name    => 'FamilyCircleJerk',
    	license        => 'perl',
-   	dist_author    => ['Fatty Crabcakes'],
+   	dist_author    => ['Fatty Crabcakes <johngaltatemyballs@gmail.com>'],
    	needs_compiler => 1,
    	configure_requires => {
    		'Config::AutoConf'   => '0.14',
@@ -14,7 +14,7 @@ my $builder = Module::Build->new(
    		'Module::Build'      => '0.3603',
    	},
 	requires => {
-    	'LWP::UserAgent'=>0,
+    	'LWP::Curl'=>0,
     	'Try::Tiny'=>0,
     	'Image::Magick'=>0,
     	'Web::Scraper'=>0,
@@ -30,7 +30,7 @@ my $builder = Module::Build->new(
 	extra_linker_flags=>[qw(-lopencv_imgproc -lopencv_core -lopencv_highgui)],
 	config => { cc => 'gcc', ld => 'gcc' },
     include_dirs => [qw(src/)],
-    c_source     => [qw(src/family_circlejerk.c)],
+    c_source     => [qw(src/)],
 );
 
 $builder->create_build_script();

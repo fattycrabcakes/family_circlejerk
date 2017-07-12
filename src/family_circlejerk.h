@@ -10,5 +10,5 @@
 #include <math.h>
 #include <stdio.h>
 
-SV* fcj_get_info(const char* filename);
+SV* fcj_get_info(const char* data);
 
