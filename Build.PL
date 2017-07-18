@@ -5,7 +5,7 @@ use Module::Build;
 my $builder = Module::Build->new(
 	module_name    => 'FamilyCircleJerk',
    	license        => 'perl',
-   	dist_author    => ['Fatty Crabcakes <johngaltatemyballs@gmail.com>'],
+   	dist_author    => ['Michael Hollenbeck'],
    	needs_compiler => 1,
    	configure_requires => {
    		'Config::AutoConf'   => '0.14',
@@ -26,7 +26,7 @@ my $builder = Module::Build->new(
     	'File::Type'=>0,
 	},
 	'libdir'   => "./lib",
-    extra_compiler_flags => '', # We're going to assume everyone is at least that modern
+    extra_compiler_flags => '',
 	extra_linker_flags=>[qw(-lopencv_imgproc -lopencv_core -lopencv_highgui)],
 	config => { cc => 'gcc', ld => 'gcc' },
     include_dirs => [qw(src/)],
