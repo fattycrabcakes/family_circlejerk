@@ -34,10 +34,14 @@ sub render {
 	my $overlay = Image::Magick->new();
 	$overlay->Read($self->overlay);
 	my $img = $self->load_image($args{image});
+	if (defined $args{sav}) {
+		$img->write(sprintf("output/image-original-%d.jpg",$args{sav}));
+	}
+
 	$img->Set(magick=>"jpg");
 
 	my $rect = $self->get("/tmp/family_circlejerk.jpg")->{entries}->[0];
-	$img->Composite(image=>$overlay,compose=>"Atop",gravity=>"Northwest",x=>0,y=>0);
+	#$img->Composite(image=>$overlay,compose=>"Atop",gravity=>"Northwest",x=>0,y=>0);
 	return undef if (!$rect);
 
 	my $max_width = $rect->{size}-$rect->{left};
@@ -51,6 +55,7 @@ sub render {
 		stroke=>"#00000000",
 		points=>join(",",$rect->{left},$texty,$rect->{left}+$rect->{size},$img->Get("height"))
 	);
+	if (0) {
 	$img->Draw(
 		primitive=>"circle",
 		fill=>"#00000000",
@@ -58,7 +63,7 @@ sub render {
 		points=>join(",",$rect->{x},$rect->{y},$rect->{x}+$rect->{radius},$rect->{y}),
 		strokewidth=>8
 	);
-	#$img->Draw(primitive=>"rectangle",fill=>"#00000000",stroke=>"#000000",points=>join(",",$rect->{x},$rect->{y},($rect->{x}-$rect->{left})+($rect->{radius}/2),$rect->{y}),strokewidth=>"4");
+	}
 
 	
 
@@ -79,7 +84,7 @@ sub render {
 	$img->Annotate(
 		%params,
 		x=>($rect->{left}+$max_width/2)-($width/2),
-		y=>$texty+($max_height/4)#$img->Get("height")-$descender-($ascender/2)
+		y=>$texty+$ascender-$descender,
 	);
 	return $img;
 }
@@ -135,8 +140,12 @@ sub load_image {
 			$img->BlobToImage($res);
 		}
 	}
-	$img->Write("/tmp/family_circlejerk.jpg");
-	return $img;
+	my $canvas = Image::Magick->new();
+  	$canvas->Set(size=>($img->get("width")+20)."x".($img->get("height")+20));
+  	$canvas->Read('xc:white');
+  	$canvas->Composite(image=>$img,compose=>"over",gravity=>"Center");
+	$canvas->Write("/tmp/family_circlejerk.jpg");
+	return $canvas;
 }
 
 1;

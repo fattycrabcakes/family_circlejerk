@@ -18,7 +18,8 @@ SV* fcj_get_info(const char* data) {
     CvMemStorage *storage = cvCreateMemStorage(0);
 
     int bkp = 1;
-    c = cvHoughCircles(src, storage, CV_HOUGH_GRADIENT, 1, 100, 100, 100, 200, 0);
+	
+    c = cvHoughCircles(src, storage, CV_HOUGH_GRADIENT, 1, 100, 150, 100, 150, 0);
     int thickness = 5;
 	AV* yoffs = newAV();
 	HV* ret = newHV();
